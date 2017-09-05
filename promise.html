@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<form>
+<input value=姓名></input>
+<input value=密码></input>
+<input type="button"></input>
+</form>
+<script>
+$('form').on('submit',function(e)){
+e.preventDefault()
+$('form input[type=submit]').prop('disabled',true)//没执行完不能重复提交//
+$.post('./user.json',{username:'xx'})//为什么可以直接.then。难道$.post('./user.json',{username:'xx'})返回的是promise对象//
+.then(data =>{console.log(data)})
+.then(data =>{
+consolr.log('第2次成功')
+$('form input[type=submit]').prop('disabled',false)
+},(xhr)=>{
+console.log(xhr.status)
+})
+}//第2次then是根据前面执行完的结果，不管成功或者失败。如果报错了就不执行了//
+</script>
+</body>
+</html>
